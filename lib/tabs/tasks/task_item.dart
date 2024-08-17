@@ -8,16 +8,19 @@ import 'package:todo/models/task_model.dart';
 import 'package:todo/tabs/tasks/tasks_provider.dart';
 
 class TaskItem extends StatelessWidget {
-  TaskItem(this.task);
+  const TaskItem(
+    this.task, {
+    super.key,
+  });
 
-  TaskModel task;
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       child: Slidable(
         startActionPane: ActionPane(
           motion: const ScrollMotion(),
@@ -26,7 +29,7 @@ class TaskItem extends StatelessWidget {
               onPressed: (context) {
                 FirebaseFunctions.deleteTaskFromFirestore(task.id)
                     .timeout(
-                  Duration(microseconds: 500),
+                  const Duration(microseconds: 500),
                   onTimeout: () =>
                       Provider.of<TasksProvider>(context, listen: false)
                           .getTasks(),
@@ -34,7 +37,6 @@ class TaskItem extends StatelessWidget {
                     .catchError(
                   (error) {
                     Fluttertoast.showToast(msg: 'Something went wrong!');
-                    print(error);
                   },
                 );
               },
@@ -47,7 +49,7 @@ class TaskItem extends StatelessWidget {
           ],
         ),
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: AppTheme.white,
             borderRadius: BorderRadius.circular(15),
@@ -57,7 +59,7 @@ class TaskItem extends StatelessWidget {
               Container(
                 height: 62,
                 width: 4,
-                margin: EdgeInsetsDirectional.only(end: 8),
+                margin: const EdgeInsetsDirectional.only(end: 8),
                 color: theme.primaryColor,
               ),
               Column(
@@ -74,7 +76,7 @@ class TaskItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 height: 34,
                 width: 69,
